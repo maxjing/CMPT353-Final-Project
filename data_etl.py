@@ -25,7 +25,7 @@ def extractFileName(path):
     return m.group(2)
 
 
-def extractData(df, min=5, max=20):
+def extractData(df, min=5, max=15):
     '''
     extrac start and beginning dummy data
     '''
