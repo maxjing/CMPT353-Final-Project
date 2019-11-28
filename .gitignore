@@ -1,0 +1,5 @@
+/data_processed
+.vscode/
+.ipynb_checkpoints/
+*.ipynb
+data_etl.copy.py
