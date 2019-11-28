@@ -2,7 +2,7 @@
 
 ## data
 1. put csv data into /data folder
-    rule: filename start with categories including ['walk', 'run', 'climb_stairs']
+    rule: filename start with categories including ['walk', 'run', 'upstairs', 'downstairs'] with method ['pocket', 'hand', 'foot']
 
 # steps:
 1. run python3 data_etl.py
