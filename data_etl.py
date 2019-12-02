@@ -15,6 +15,7 @@ positions = ['foot', 'hand', 'pocket']
 observers = ['ax', 'ay', 'az', 'wx', 'wy', 'wz']
 
 path_re = re.compile(r"^(.+/)([^-]*)")
+type_re = re.compile(r"(.+)_")
 
 
 def extractFileName(path):
@@ -25,19 +26,29 @@ def extractFileName(path):
     return m.group(2)
 
 
+def extractTypeName(path):
+    m = type_re.match(path)
+    return m.group(1)
+
+
 def extractData(df, min=5, max=15):
     '''
     extrac start and beginning dummy data
     '''
     condition = (df['time'] > min) & (df['time'] < max)
-    return df.loc[condition]
+    return df.loc[condition].reset_index(drop=True)
 
 
 def main():
+    os.mkdir(csv_folder)
     for f in files:
         fileName = extractFileName(f)
+        typeName = extractTypeName(fileName)
         original_df = pd.read_csv(f).dropna(axis='columns')
         original_df = extractData(original_df)
+        original_df['label'] = typeName
+        original_df.to_csv(os.path.join(
+            f'{root_dir}/{csv_folder}/{fileName}.csv'), mode='a')
         for observer in observers:
             df = pd.DataFrame()
             df[observer] = original_df[observer]
