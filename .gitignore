@@ -3,3 +3,4 @@
 .ipynb_checkpoints/
 *.ipynb
 data_etl.copy.py
+/fig

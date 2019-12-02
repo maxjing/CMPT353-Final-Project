@@ -29,7 +29,7 @@ downstairs_hand = pd.read_csv('data_processed/downstairs_hand.csv', names=cols)
 def create_plots():
     os.mkdir('fig')
     for c in SENSOR_DATA_COLUMNS:
-        plt.figure(figsize=(10, 5))
+        plt.figure(figsize=(5, 5))
         plt.title('Foot')
         sns.distplot(walk_foot[c], label='walk')
         sns.distplot(run_foot[c], label='run')
@@ -38,7 +38,7 @@ def create_plots():
         plt.legend()
         plt.savefig(f'./fig/foot-{c}.png')
     for c in SENSOR_DATA_COLUMNS:
-        plt.figure(figsize=(10, 5))
+        plt.figure(figsize=(5, 5))
         plt.title('Hand')
         sns.distplot(walk_hand[c], label='walk')
         sns.distplot(run_hand[c], label='run')
@@ -47,7 +47,7 @@ def create_plots():
         plt.legend()
         plt.savefig(f'./fig/hand-{c}.png')
     for c in SENSOR_DATA_COLUMNS:
-        plt.figure(figsize=(10, 5))
+        plt.figure(figsize=(5, 5))
         plt.title('Pocket')
         sns.distplot(walk_pocket[c], label='walk')
         sns.distplot(run_pocket[c], label='run')
