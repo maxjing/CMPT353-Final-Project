@@ -1,28 +1,30 @@
 # cmpt353-group-cj
 
 ## requrired library
-*Pandas
-*Numpy
-*Matplotlib
-*SciPy
-*Seaborn
-*re
-*scikit-learn
+
+*  Pandas
+*  Numpy
+*  Matplotlib
+*  SciPy
+*  Seaborn
+*  re
+*  scikit-learn
+
 
 ## data
-1. put csv data into /data folder
-    rule: filename start with categories including ['walk', 'run', 'upstairs', 'downstairs'] with method ['pocket', 'hand', 'foot']
+
+Original data is in **data** folder and later will be processed by **data_etl.py** script
 
 ## steps:
 1. run `python3 data_etl.py`
     
-    This will produce `data_processed` folder with combined and filtered data
+    This will create **data_processed** folder with combined and filtered data
 
     Filenames start with categories including ['walk', 'run', 'upstairs', 'downstairs'] with location ['pocket', 'hand', 'foot']
 
 2. run `python3 main.py`
 
-    This script will create a new folder called `fig` which will contain 18 distribution graph of ax, ay, az, wx, wy, wz from different locations
+    This script will create a new folder called **fig** which will contain 18 distribution graph of ax, ay, az, wx, wy, wz from different locations
 
 3. (optional) run `python3 velocity.py`
     
