@@ -10,6 +10,9 @@ downstairs_foot = pd.read_csv('data/downstairs_foot-2019-11-2715.23.59.csv').dro
 
 activity_type = [walk_foot, run_foot, upstairs_foot, downstairs_foot]
 vel = []
+vel_x = []
+vel_y = []
+
 def vectorAcceleration(df):
     '''
         calculate vector acceleration
@@ -43,7 +46,11 @@ for i, m in enumerate(activity_type):  # yes, you can leave this loop in if you 
     m = noiseSmooth(m)
     m['magnitude_acc'] = m.apply(vectorAcceleration, axis=1)
     vel_acc_filtered = vel_integration(m.magnitude_acc, m.time)
+    vel_x_f = vel_integration(m.ax_filtered, m.time)
+    vel_y_f = vel_integration(m.ay_filtered, m.time)
     vel.append(vel_acc_filtered)
+    vel_x.append(vel_x_f)
+    vel_y.append(vel_y_f)
 
 
 df2 = walk_foot.iloc[5000:10000]
@@ -52,5 +59,25 @@ plt.plot(x2, vel[0], label='walk')
 plt.plot(x2, vel[1], label='run')
 plt.plot(x2, vel[2], label='upstairs')
 plt.plot(x2, vel[3], label='downstairs')
+plt.title('velocity on total acceleration')
 plt.legend()
 plt.savefig(f'./fig/velocity.png')
+plt.clf()
+
+plt.plot(x2, vel_x[0], label='walk')
+plt.plot(x2, vel_x[1], label='run')
+plt.plot(x2, vel_x[2], label='upstairs')
+plt.plot(x2, vel_x[3], label='downstairs')
+plt.title('velocity on x-axis acceleration')
+plt.legend()
+plt.savefig(f'./fig/velocity-x.png')
+plt.clf()
+
+plt.plot(x2, vel_y[0], label='walk')
+plt.plot(x2, vel_y[1], label='run')
+plt.plot(x2, vel_y[2], label='upstairs')
+plt.plot(x2, vel_y[3], label='downstairs')
+plt.title('velocity on y-axis acceleration')
+plt.legend()
+plt.savefig(f'./fig/velocity-y.png')
+plt.clf()
