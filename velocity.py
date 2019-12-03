@@ -6,9 +6,9 @@ from scipy import signal, integrate
 walk_foot = pd.read_csv('data/walk_foot-2019-11-2715.42.22.csv').dropna(axis='columns')
 run_foot = pd.read_csv('data/run_foot-2019-11-2715.55.43.csv').dropna(axis='columns')
 upstairs_foot = pd.read_csv('data/upstairs_foot-2019-11-2715.23.25.csv').dropna(axis='columns')
-downstaiars_foot = pd.read_csv('data/downstairs_foot-2019-11-2715.23.59.csv').dropna(axis='columns')
+downstairs_foot = pd.read_csv('data/downstairs_foot-2019-11-2715.23.59.csv').dropna(axis='columns')
 
-activity_type = [walk_foot, run_foot, upstairs_foot, downstaiars_foot]
+activity_type = [walk_foot, run_foot, upstairs_foot, downstairs_foot]
 vel = []
 def vectorAcceleration(df):
     '''

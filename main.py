@@ -93,7 +93,7 @@ def train_model(df):
     ))
 
 def main():
-    # create_plots()
+    create_plots()
     foot_combined = pd.concat([walk_foot, run_foot, upstairs_foot, downstairs_foot]).reset_index()
     pocket_combined = pd.concat([walk_pocket, run_pocket, upstairs_pocket, downstairs_pocket]).reset_index()
     hand_combined = pd.concat([walk_hand, run_hand, upstairs_hand, downstairs_hand]).reset_index()
