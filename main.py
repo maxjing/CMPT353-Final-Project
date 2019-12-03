@@ -4,6 +4,15 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
+
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import FunctionTransformer
+from skimage.color import rgb2lab
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import RandomForestClassifier
+
 cols = ['ax', 'ay', 'az', 'wx', 'wy', 'wz', 'ax_filtered', 'ay_filtered',
         'az_filtered', 'wx_filtered', 'wy_filtered', 'wz_filtered', 'label']
 
@@ -56,10 +65,41 @@ def create_plots():
         plt.legend()
         plt.savefig(f'./fig/pocket-{c}.png')
 
+def train_model(df):
+    X = df[SENSOR_DATA_COLUMNS].values
+    y = df['label'].values
+
+    X_train, X_valid, y_train, y_valid = train_test_split(X, y)
+
+    bayes_model = GaussianNB()
+
+    knn_model = KNeighborsClassifier(n_neighbors=5)
+
+    rf_model = RandomForestClassifier(n_estimators=100, max_depth=10, min_samples_leaf=10)
+
+    models = [bayes_model, knn_model, rf_model]
+    for i, m in enumerate(models):
+        m.fit(X_train, y_train)
+        
+    OUTPUT_TEMPLATE = (
+        'Bayesian classifier:    {bayes_rgb:.3f} \n'
+        'kNN classifier:         {knn_rgb:.3f} \n'
+        'Rand forest classifier: {rf_rgb:.3f} \n'
+    )
+    print(OUTPUT_TEMPLATE.format(
+        bayes_rgb=bayes_model.score(X_valid, y_valid),
+        knn_rgb=knn_model.score(X_valid, y_valid),
+        rf_rgb=rf_model.score(X_valid, y_valid),
+    ))
 
 def main():
-    create_plots()
-
+    # create_plots()
+    foot_combined = pd.concat([walk_foot, run_foot, upstairs_foot, downstairs_foot]).reset_index()
+    pocket_combined = pd.concat([walk_pocket, run_pocket, upstairs_pocket, downstairs_pocket]).reset_index()
+    hand_combined = pd.concat([walk_hand, run_hand, upstairs_hand, downstairs_hand]).reset_index()
+    train_model(foot_combined)
+    train_model(pocket_combined)
+    train_model(hand_combined)
 
 if __name__ == '__main__':
     main()
