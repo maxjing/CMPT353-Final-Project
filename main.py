@@ -9,7 +9,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import FunctionTransformer
-from skimage.color import rgb2lab
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 
